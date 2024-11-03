@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
 from PIL import Image
 from tqdm import tqdm
+from sklearn import cluster, datasets
+import numpy as np
 
 def create_gif(image_paths, output_path, duration=5):
     images = [Image.open(img_path) for img_path in image_paths]
@@ -16,8 +18,9 @@ def create_gif(image_paths, output_path, duration=5):
     )
 
 def plot2d_data(df, clusters, title, path):
+    unique_clusters = np.unique(clusters)
     plt.figure(figsize=(8, 6))
-    plt.scatter(df[0], df[1], c=clusters, cmap='gist_rainbow', s=50)
+    plt.scatter(df[0], df[1], c=unique_clusters, cmap='gist_rainbow', s=50)
     plt.title(title)
     plt.savefig(path)
     plt.close()
@@ -69,10 +72,18 @@ def get_dataset(name: str) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
-    df = get_dataset("aggregations")
-    linkage_method = "single"
-    linkage_matrix = hierarchical_clustering(df, linkage_method=linkage_method)
-    animate_clustering(df, linkage_matrix, n_clusters=7, linkage_method=linkage_method)
+    # df = get_dataset("aggregations")
+    # print(df.shape)
+    n_samples = 1500
+    df, Y = datasets.make_circles(
+    n_samples=n_samples, factor=0.5, noise=0.05, random_state=170
+    )
+    print(df.shape)
     
-    save_dendrogram(linkage_matrix, linkage_method)
+    linkage_methods = ["single", "complete", "average", "ward"]
+    for linkage_method in linkage_methods:
+        linkage_matrix = hierarchical_clustering(df, linkage_method=linkage_method)
+        animate_clustering(df, linkage_matrix, n_clusters=2, linkage_method=linkage_method)
+    
+        save_dendrogram(linkage_matrix, linkage_method)
     
