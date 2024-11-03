@@ -121,8 +121,8 @@ if __name__ == "__main__":
     os.makedirs(output_dir, exist_ok=True)
 
     datasets = {
-        "circles": datasets.make_circles(n_samples=100, factor=0.5, noise=0.05, random_state=170),
-        "moons": datasets.make_moons(n_samples=100, noise=0.05, random_state=170),
+        # # "circles": datasets.make_circles(n_samples=100, factor=0.5, noise=0.05, random_state=170),
+        # "moons": datasets.make_moons(n_samples=100, noise=0.05, random_state=170),
         "blobs": datasets.make_blobs(n_samples=100, random_state=170),
         "aniso": datasets.make_blobs(n_samples=100, random_state=170),
         "no_structure": (np.random.rand(100, 2), None)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
         for linkage_method in linkage_methods:
             try:
                 linkage_matrix = hierarchical_clustering(data, linkage_method=linkage_method)
-                animate_clustering(data, dataset_name, linkage_matrix, n_clusters=2, 
+                animate_clustering(data, dataset_name, linkage_matrix, n_clusters=3, 
                                    linkage_method=linkage_method, output_dir=output_dir)
                 save_dendrogram(linkage_matrix, linkage_method, output_dir)
             except Exception as e:

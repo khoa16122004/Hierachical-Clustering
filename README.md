@@ -1,6 +1,13 @@
 # Hierachical-Clustering
 Implement many Hierachical-Clustering methods for 2D data.
 
+# Memebers
+Tran Nhat Khoa - 22520691
+
+Huynh Tong Dang Khoa - 22520670
+
+Le Tran Quoc Khanh - 22520638
+
 # Task Assignment Table
 Those responsible for content in each section will also handle the coding, experimentation, and slides for that section.
 
